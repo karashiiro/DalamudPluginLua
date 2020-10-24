@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalamudPluginProjectTemplateLua", "DalamudPluginProjectTemplateLua.csproj", "{8434EEDE-1435-46C8-A99E-99AA5C0D5002}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FE95DF4E-AC4D-4FF3-9AC4-8298368361B7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8434EEDE-1435-46C8-A99E-99AA5C0D5002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8434EEDE-1435-46C8-A99E-99AA5C0D5002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8434EEDE-1435-46C8-A99E-99AA5C0D5002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8434EEDE-1435-46C8-A99E-99AA5C0D5002}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D93AF3AE-B544-4FBA-B27C-C0415D72EC6F}
+	EndGlobalSection
+EndGlobal

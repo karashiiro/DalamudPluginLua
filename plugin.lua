@@ -28,3 +28,4 @@ local command1 = InteropCommand:new{
 }
 
 commands = [command1]
+return commands

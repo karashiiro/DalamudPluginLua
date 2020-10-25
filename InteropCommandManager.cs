@@ -1,7 +1,6 @@
 ﻿using Dalamud.Game.Command;
 using Dalamud.Plugin;
 using System.Collections.Generic;
-using NLua;
 
 namespace DalamudPluginProjectTemplateLua
 {
@@ -21,11 +20,7 @@ namespace DalamudPluginProjectTemplateLua
             this.commands = commands;
             foreach (var command in this.commands)
             {
-                command.Command = (CommandInfo.HandlerDelegate)((cmd, args) =>
-                {
-                    LuaFunction fn = command.Command;
-                    fn.Call(cmd, args);
-                });
+                command.Command = (CommandInfo.HandlerDelegate)command.Command;
 
                 var commandInfo = new CommandInfo(command.Command)
                 {

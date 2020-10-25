@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Dalamud.Plugin;
-using NLua;
+using Neo.IronLua;
 
 namespace DalamudPluginProjectTemplateLua
 {
@@ -12,6 +12,7 @@ namespace DalamudPluginProjectTemplateLua
         public string Name => "Your Plugin's Display Name";
 
         private Lua lua;
+        private dynamic env;
 
         private Configuration config;
         private DalamudPluginInterface pluginInterface;
@@ -25,6 +26,7 @@ namespace DalamudPluginProjectTemplateLua
             this.config.Initialize(pluginInterface);
 
             this.lua = new Lua();
+            this.env = this.lua.CreateEnvironment();
             
             this.commandManager = new InteropCommandManager(pluginInterface);
 
@@ -34,18 +36,18 @@ namespace DalamudPluginProjectTemplateLua
 
         private void ConfigureScope()
         {
-            this.lua.LoadCLRPackage();
-            this.lua["Configuration"] = this.config;
-            this.lua["PluginInterface"] = this.pluginInterface;
+            this.env.Configuration = this.config;
+            this.env.PluginInterface = this.pluginInterface;
         }
 
         private void Execute(string scriptFile)
         {
             var filePath = GetRelativeFile(scriptFile);
 
-            this.lua.DoFile(filePath);
+            var chunk = this.lua.CompileChunk(filePath, new LuaCompileOptions());
+            var res = ((LuaGlobal)this.env).DoChunk(chunk);
 
-            var commands = (IList<dynamic>)this.lua["commands"];
+            var commands = (IList<dynamic>)res.Values[0];
             this.commandManager.Install(commands);
         }
 

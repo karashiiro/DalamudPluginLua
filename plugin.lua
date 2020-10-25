@@ -1,19 +1,8 @@
-﻿import ("Dalamud")
+﻿const ObjectList typeof System.Collections.Generic.List[System.Object];
+const PluginLog typeof Dalamud.Plugin.PluginLog
 
-InteropCommand = {
-	Name = "",
-	Aliases = [],
-	HelpMessage = "",
-	ShowInHelp = true,
-	Command = nil
-}
-
-function InteropCommand:new (o)
-	o = o or {}
-	setmetatable(o, self)
-	self.__index = self
-	return o
-end
+local InteropCommand = require "interopcommand"
+PluginLog.Log(InteropCommand == nil)
 
 function command_1 (command, args)
 	local chat = PluginInterface.Framework.Gui.Chat
@@ -22,10 +11,11 @@ function command_1 (command, args)
 end
 local command1 = InteropCommand:new{
 	Name = "/example1",
-	Aliases = ["/ex1"],
+	Aliases = {"/ex1"},
 	HelpMessage = "Example help message.",
 	Command = command_1
 }
 
-commands = [command1]
+local commands = ObjectList()
+commands.Add(command1)
 return commands

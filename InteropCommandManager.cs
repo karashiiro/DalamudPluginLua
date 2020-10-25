@@ -20,9 +20,10 @@ namespace DalamudPluginProjectTemplateLua
             this.commands = commands;
             foreach (var command in this.commands)
             {
-                command.Command = (CommandInfo.HandlerDelegate)command.Command;
-
-                var commandInfo = new CommandInfo(command.Command)
+                var commandInfo = new CommandInfo((cmd, args) =>
+                {
+                    command.Command(cmd, args);
+                })
                 {
                     HelpMessage = command.HelpMessage,
                     ShowInHelp = command.ShowInHelp,
@@ -30,9 +31,9 @@ namespace DalamudPluginProjectTemplateLua
 
                 this.pluginInterface.CommandManager.AddHandler(command.Name, commandInfo);
 
-                foreach (var alias in command.Aliases)
+                foreach (KeyValuePair<object, object> alias in command.Aliases)
                 {
-                    this.pluginInterface.CommandManager.AddHandler(alias, commandInfo);
+                    this.pluginInterface.CommandManager.AddHandler((string)alias.Value, commandInfo);
                 }
             }
         }

@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using Dalamud.Plugin;
 using Neo.IronLua;
+// ReSharper disable StringLiteralTypo
 
 namespace DalamudPluginProjectTemplateLua
 {
@@ -26,12 +27,12 @@ namespace DalamudPluginProjectTemplateLua
             this.config.Initialize(pluginInterface);
 
             this.lua = new Lua();
-            this.env = this.lua.CreateEnvironment();
+            this.env = this.lua.CreateEnvironment<PluginLuaGlobal>();
             
             this.commandManager = new InteropCommandManager(pluginInterface);
 
             ConfigureScope();
-            Execute("plugin.lua");
+            BeginScript();
         }
 
         private void ConfigureScope()
@@ -40,20 +41,13 @@ namespace DalamudPluginProjectTemplateLua
             this.env.PluginInterface = this.pluginInterface;
         }
 
-        private void Execute(string scriptFile)
+        private void BeginScript()
         {
-            var filePath = GetRelativeFile(scriptFile);
+            var res = ((LuaGlobal)this.env).DoChunk(Util.GetRelativeFile("plugin.lua"));
 
-            var chunk = this.lua.CompileChunk(filePath, new LuaCompileOptions());
-            var res = ((LuaGlobal)this.env).DoChunk(chunk);
-
+            if (res.Values.Length <= 0) return;
             var commands = (IList<dynamic>)res.Values[0];
             this.commandManager.Install(commands);
-        }
-
-        private static string GetRelativeFile(string fileName)
-        {
-            return Path.Combine(Assembly.GetExecutingAssembly().Location, "..", fileName);
         }
 
         #region IDisposable Support

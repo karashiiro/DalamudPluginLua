@@ -1,7 +1,4 @@
-﻿const PluginLog typeof Dalamud.Plugin.PluginLog
-PluginLog.Log("Hit")
-
-local InteropCommand = {
+﻿local InteropCommand = {
 	Name = "",
 	Aliases = {},
 	HelpMessage = "",

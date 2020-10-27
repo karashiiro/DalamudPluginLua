@@ -12,6 +12,7 @@ namespace DalamudPluginProjectTemplateLua
 
         public InteropCommandManager(DalamudPluginInterface pluginInterface)
         {
+            this.commands = new List<dynamic>();
             this.pluginInterface = pluginInterface;
         }
 
@@ -44,9 +45,9 @@ namespace DalamudPluginProjectTemplateLua
             {
                 this.pluginInterface.CommandManager.RemoveHandler(command.Name);
 
-                foreach (var alias in command.Aliases)
+                foreach (KeyValuePair<object, object> alias in command.Aliases)
                 {
-                    this.pluginInterface.CommandManager.RemoveHandler(alias);
+                    this.pluginInterface.CommandManager.RemoveHandler((string)alias.Value);
                 }
             }
         }

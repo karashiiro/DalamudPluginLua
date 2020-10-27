@@ -26,11 +26,15 @@ namespace DalamudPluginProjectTemplateLua
 
             try
             {
-                var res = DoChunk(Util.GetRelativeFile((string) modName) + ".lua");
+                var res = DoChunk(Util.GetRelativeFile((string)modName) + ".lua");
                 this.loaded.Add(modName, res);
                 return res;
             }
             catch (LuaRuntimeException)
+            {
+                throw;
+            }
+            catch
             {
                 return LuaResult.Empty;
             }

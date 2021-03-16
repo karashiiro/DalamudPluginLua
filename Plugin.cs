@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Dalamud.Plugin;
 using Neo.IronLua;
-// ReSharper disable StringLiteralTypo
 
 namespace DalamudPluginProjectTemplateLua
 {

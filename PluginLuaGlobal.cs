@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Neo.IronLua;
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable UnusedMember.Global
 
 namespace DalamudPluginProjectTemplateLua
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class PluginLuaGlobal : LuaGlobal
     {
         private readonly IDictionary<object, object> loaded;

@@ -1,5 +1,4 @@
 ﻿using Dalamud.Game.Command;
-using Dalamud.Plugin;
 using System.Collections.Generic;
 
 namespace DalamudPluginProjectTemplateLua
@@ -8,12 +7,12 @@ namespace DalamudPluginProjectTemplateLua
     {
         private IList<dynamic> commands;
 
-        private readonly DalamudPluginInterface pluginInterface;
+        private readonly CommandManager commandManager;
 
-        public InteropCommandManager(DalamudPluginInterface pluginInterface)
+        public InteropCommandManager(CommandManager commandManager)
         {
             this.commands = new List<dynamic>();
-            this.pluginInterface = pluginInterface;
+            this.commandManager = commandManager;
         }
 
         public void Install(IList<dynamic> commands)
@@ -30,11 +29,11 @@ namespace DalamudPluginProjectTemplateLua
                     ShowInHelp = command.ShowInHelp,
                 };
 
-                this.pluginInterface.CommandManager.AddHandler(command.Name, commandInfo);
+                this.commandManager.AddHandler(command.Name, commandInfo);
 
                 foreach (KeyValuePair<object, object> alias in command.Aliases)
                 {
-                    this.pluginInterface.CommandManager.AddHandler((string)alias.Value, commandInfo);
+                    this.commandManager.AddHandler((string)alias.Value, commandInfo);
                 }
             }
         }
@@ -43,11 +42,11 @@ namespace DalamudPluginProjectTemplateLua
         {
             foreach (var command in this.commands)
             {
-                this.pluginInterface.CommandManager.RemoveHandler(command.Name);
+                this.commandManager.RemoveHandler(command.Name);
 
                 foreach (KeyValuePair<object, object> alias in command.Aliases)
                 {
-                    this.pluginInterface.CommandManager.RemoveHandler((string)alias.Value);
+                    this.commandManager.RemoveHandler((string)alias.Value);
                 }
             }
         }

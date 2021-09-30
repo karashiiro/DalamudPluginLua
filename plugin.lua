@@ -4,9 +4,8 @@ const PluginLog typeof Dalamud.Plugin.PluginLog
 local InteropCommand = require "interopcommand"
 
 function command_1 (command, args)
-	local chat = PluginInterface.Framework.Gui.Chat
-	local world = PluginInterface.ClientState.LocalPlayer.CurrentWorld.GameData
-	chat.Print("Hello " .. world.Name .. "!")
+	local world = ClientState.LocalPlayer.CurrentWorld.GameData
+	Chat.Print("Hello, " .. world.Name .. "!")
 	PluginLog.Log("Logged message.");
 end
 local command1 = InteropCommand:new{
